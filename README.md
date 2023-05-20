@@ -1,8 +1,8 @@
 # TopTrackTracker
 
-**TopTrackTracker** is a Flask-based web app that allows users to view and stream their latest Liked Songs on Spotify. It leverages the Spotipy library to connect to the Spotify API, authenticate Client Credentials, and retrieve the user's saved tracks. The application presents the user with a list of their 10 latest Liked Songs, including details such as the artist, song name, popularity, and a link to listen on Spotify.
+**TopTrackTracker** is a Flask-based web app that allows users to view and stream their latest Liked Songs on Spotify. It leverages the Spotipy library to connect to the Spotify API, authenticate the user's Client Credentials, and retrieve the user's saved tracks. The application presents the user with a list of their 10 latest Liked Songs, including details such as the artist, song name, popularity, and a link to listen on Spotify.
 
-![Project Image](path/to/your/toptracktracker_screenshot.png)
+![Project Image](https://www.followcrom.online/embeds/toptracktracker_screenshot.png)
 
 ## Table of Contents
 
@@ -22,12 +22,9 @@
 ## Usage
 
 1. Set up the necessary environment variables:
-
-SPOTIPY_CLIENT_ID: The client ID for your Spotify application.
-
-SPOTIPY_CLIENT_SECRET: The client secret for your Spotify application.
-
-SPOTIPY_REDIRECT_URI: The redirect URI for your Spotify application.
+   SPOTIPY_CLIENT_ID: The client ID for your Spotify application.
+   SPOTIPY_CLIENT_SECRET: The client secret for your Spotify application.
+   SPOTIPY_REDIRECT_URI: The redirect URI for your Spotify application.
 
 2. Run the Flask application:
 
