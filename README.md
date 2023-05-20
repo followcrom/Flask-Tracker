@@ -14,21 +14,26 @@
 ## Installation
 
 1. Clone the repository:
-   git clone https://github.com/followcrom/TopTrackTracker.git
+
+git clone https://github.com/followcrom/TopTrackTracker.git
 
 2. Install the required dependencies:
-   pip install -r requirements.txt
+
+pip install -r requirements.txt
 
 ## Usage
 
 1. Set up the necessary environment variables:
-   SPOTIPY_CLIENT_ID: The client ID for your Spotify application.
-   SPOTIPY_CLIENT_SECRET: The client secret for your Spotify application.
-   SPOTIPY_REDIRECT_URI: The redirect URI for your Spotify application.
+
+SPOTIPY_CLIENT_ID: The client ID for your Spotify application.
+
+SPOTIPY_CLIENT_SECRET: The client secret for your Spotify application.
+
+SPOTIPY_REDIRECT_URI: The redirect URI for your Spotify application.
 
 2. Run the Flask application:
 
-python application.py
+`python application.py`
 
 3. Open your web browser and navigate to localhost port 5000 (for example) to access the application.
 
