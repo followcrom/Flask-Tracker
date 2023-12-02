@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <title>{% block title %}Top Track Tracker{% endblock %}</title> -->
+    <title>Top Track Tracker</title>
+
+    <!-- Canonical Link -->
+    <link rel="canonical" href="https://followcrom.online/">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon_dom.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+
+
+
+
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/full_screen.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/trend_table.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/tops_table.css' %}">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Open+Sans&family=Raleway&display=swap"
+        rel="stylesheet">
+
+
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+</head>
+
+<body class="main">
+
+    <div class="banner">
+        <img src="{% static 'imgs/banner_1024x220.png' %}" alt="Top Track Tracker Banner" />
+    </div>
+
+
+
+    <nav class="navbar">
+        <div class="navbar-nav">
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+            <a class="nav-link" href="{% url 'top_tracks_short_term' %}">Short Term</a>
+            <a class="nav-link" href="{% url 'top_tracks_medium_term' %}">Medium Term</a>
+            <a class="nav-link" href="{% url 'top_tracks_long_term' %}">Long Term</a>
+            <a class="nav-link" href="{% url 'view_trending_tracks' %}">Trending Tracks</a>
+        </div>
+    </nav>
+
+
+
+
+
+
+    <div id="content" name="content">
+        {% block content %}
+        <!-- Content overridden in child templates -->
+        {% endblock %}
+    </div>
+
+
+</body>
+
+</html>
