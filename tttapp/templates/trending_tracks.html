@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{ name }}</h1>
+
+<div class="topRow">
+    <button id="startPlaybackButton" class="button" style="color: green;">Start Spotify Playback</button>
+
+    <a href="{% url 'export_csv' %}" class="button" style="color: #004897;">Export to CSV</a>
+
+    <form action="{% url 'delete_all_tracks' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="button" style="color: red;"
+            onclick="return confirm('Are you sure you want to delete all tracks?')">Delete All
+            Tracks</button>
+    </form>
+
+</div>
+
+
+
+<table class="trend_table">
+    <tr>
+        <th>#</th>
+        <th>Artist</th>
+        <th>Song</th>
+        <th>Mood</th>
+        <th>Genres</th>
+        <th>Listen</th>
+        <th>More</th>
+        <th>Delete</th>
+    </tr>
+
+    {% for track in trending_tracks %}
+
+    <tr>
+        <td class="counter">
+            {{ forloop.counter }}
+        </td>
+        <td class="artist">
+            {{ track.artist }}
+        </td>
+        <td class="song">
+            {{ track.song }}
+        </td>
+        <td class="mood">
+            {{ track.mood }}
+        </td>
+        <td class="genres">
+            {{ track.genres }}
+        </td>
+        <td class="uris"><i class="fa-brands fa-spotify"></i>
+            <a class="uri" href="{{ track.uri }}" target="_blank">Open <i>{{ track.song }}</i></a>
+        </td>
+        <td class="uris"><i class="fa-solid fa-magnifying-glass" style="color: orange;"></i>
+            <a class="more" href="{{ track.artist_uri }}" target="_blank">More from <i>{{ track.artist }}</i></a>
+        </td>
+        <td class="add">
+            <form action="{% url 'delete_trending_track' track.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<br><br>
+
+<!-- JavaScript code -->
+<script>
+    // Add an event listener to the button
+    document.getElementById("startPlaybackButton").addEventListener("click", function () {
+        // Send an HTTP request to the Django view that starts Spotify playback
+        fetch("/start_spotify_playback/")
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log(data.message);
+                } else {
+                    console.error("Error starting Spotify playback:", data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Error sending request:", error);
+            });
+    });
+</script>
+
+{% endblock %}

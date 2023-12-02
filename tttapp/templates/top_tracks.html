@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{ name }}</h1>
+
+<div class="topRow">
+    <div id="message-area"></div>
+    <a href="?offset={{ next_offset }}" class="button">Load More</a>
+</div>
+
+
+<table class="track_table">
+    <tr>
+        <th>Artist</th>
+        <th>Song</th>
+        <th>Popularity</th>
+        <th>Album</th>
+        <th>Release</th>
+        <th>Listen</th>
+        <th>Add</th>
+    </tr>
+
+    {% for track in tracks %}
+
+    <tr>
+        <td class="artist">
+            {{ track.artist }}
+        </td>
+        <td class="song">
+            {{ track.song }}
+        </td>
+        <td class="popularity">
+            {{ track.popularity }}
+        </td>
+        <td class="album">
+            {{ track.album }}
+        </td>
+        <td class="release">
+            {{ track.release_year }}
+        </td>
+        <td class="uris"><i class="fa-brands fa-spotify"></i>
+            <a class="uri" href="{{ track.uri }}" target="_blank">Open <i>{{ track.song }}</i></a>
+        </td>
+        <td class="add">
+            <form class="trending-form" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="artist" value="{{ track.artist }}">
+                <input type="hidden" name="song" value="{{ track.song }}">
+                <input type="hidden" name="uri" value="{{ track.uri }}">
+                <input type="hidden" name="release_year" value="{{ track.release_year }}">
+                <input type="hidden" name="popularity" value="{{ track.popularity }}">
+                <input type="hidden" name="album" value="{{ track.album }}">
+                <input type="hidden" name="genres" value="{{ track.genres }}">
+                <input type="hidden" name="energy" value="{{ track.energy }}">
+                <input type="hidden" name="key" value="{{ track.key }}">
+                <input type="hidden" name="valence" value="{{ track.valence }}">
+                <input type="hidden" name="mood" value="{{ track.mood }}">
+                <input type="hidden" name="tempo" value="{{ track.tempo }}">
+                <input type="hidden" name="artist_uri" value="{{ track.artist_uri }}">
+                <button type="submit">Add to Trending</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<br><br>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // $(".trending-form").submit(function (e) {
+        $(".trending-form").off('submit').on('submit', function (e) {
+            e.preventDefault(); // Prevents the default form submission action
+            console.log("Form submit event triggered");
+            $.ajax({
+                type: "POST",
+                url: "{% url 'add_to_trending' %}",
+                data: $(this).serialize(),
+                success: function (response) {
+                    var messageArea = $("#message-area");
+                    messageArea.text(response.message);
+                    messageArea.css({
+                        'color': response.success ? '#004897' : 'red', // Green for success, red otherwise
+                    });
+
+                    // Clear the message after 3 seconds
+                    setTimeout(function () {
+                        messageArea.text('');
+                    }, 3000);
+                },
+                error: function (xhr, status, error) {
+                    // Handle error
+                    var messageArea = $("#message-area");
+                    messageArea.text("An error occurred: " + error);
+                    messageArea.css('color', 'red'); // Display error message in red
+                }
+            });
+        });
+    });
+</script>
+
+
+{% endblock %}
